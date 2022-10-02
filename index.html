@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Garden - Arredi per giardino</title>
+
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v6.0.0-beta3/css/all.css">
+
+</head>
+<body>
+    <div class="header">
+        <span class="title">Garden</span> <i class="subtitle">Arredi giardino</i>
+    </div>
+    <div class="container">
+        <div class="navbar">
+            <ul class="menu">
+                <li><a class="active" href="./index.html">Home</a></li>
+                <li><a href="#">Mobili</a></li>
+                <li><a href="#">Strutture</a></li>
+                <li><a href="#">Grigliati</a></li>
+                <li><a href="#">Fioriere</a></li>
+            </ul>
+        </div>
+        <div class="content">
+            <h1>Ultime notizie</h1>
+            <span id="news_count"></span> nuove notizie <button id="btnup"><i class="fa-solid fa-angle-up"></i></button>
+            <button id="btndown"><i class="fa-solid fa-angle-down"></i></button>
+            <div class="news_container">
+                <div id="news">
+
+                </div>
+            </div>
+            <h1>Prodotti per il giardino</h1>
+            <div id="cards">
+
+            </div>
+        </div>
+    </div>
+    <div class="footer">
+        <h2>Informazioni</h2>
+        <address>
+            Contact us at <a href="mailto:webmaster@sitogarden.it">webmaster@sitogarden.it</a>.<br>
+            Visit us at:<br/>
+            sitogarden.it<br/>
+            Via Roma 1, Milano<br/>
+            IT
+        </address>
+        <h3>Made by Andrea Gennaioli 4BIN</h3>
+    </div>
+
+    <script>
+        // When the user scrolls down 80px from the top of the document, resize the navbar's padding and the logo's font size
+        window.onscroll = () => { scrollFunction() };
+        window.onload = () => { generateContent() };
+
+        let i = 0;
+        let news_length = 0;
+        
+        document.getElementById('btndown').addEventListener('click', () => {
+            if(i <= -(61*(news_length-4))) {
+                i = 0;
+            } else {
+                i -= 61;
+            }
+
+            document.getElementById('news').style['margin-top'] = `${i}px`;
+        })
+        document.getElementById('btnup').addEventListener('click', () => {
+            if(i == 0) {
+                i = -61*(news_length-4);
+            } else {
+                i += 61;
+            }
+            
+            document.getElementById('news').style['margin-top'] = `${i}px`;
+        })
+        
+        async function generateContent() {
+            const newscontainer = document.getElementById('news');
+            const cards = document.getElementById('cards');
+            const prodotti = await fetch('https://mocki.io/v1/378cfa17-4958-4420-91fe-f0a83e99be59').then(res => res.json());
+            const news = [
+                {
+                    "title": "Legno e giardino",
+                    "description": "Novità dal mondo del legno, consigli utili per la manutenzione e molto altro ancora. Nuovo design per panche e fiorerie.",
+                    "url": "#",
+                    "tag": ["legno", "giardino", "mobili"],
+                },
+                {
+                    "title": "Progettazione dei frangivento",
+                    "description": "Trasforma il frangivento in una era e propria parete multifunzioale che può essere composta in base alle tue esigenze. L'obbiettivo è creare una soluzione resistente e pratica.",
+                    "url": "#",
+                    "tag": ["mobili", "fai-da-te"],
+                },
+
+                {
+                    "title": "Cura del verde, Kubota amplia la gamma e acquisisce Gianni Ferrari",
+                    "description": "Kubota Gianni Ferrari Srl così si chiamerà la nuova filiale del brand giapponese che incorporerà la divisione tosaerba del costruttore italiano Officine BIEFFEBI e della sua filiale Gianni Ferrari",
+                    "url": "#",
+                    "tag": ["giardino", "notizie", "tagliaerba"],
+                },
+                {
+                    "title": "Eima Green si prende cura del tuo verde",
+                    "description": "Confermato il Salone Green, anima verde di Eima International dedicata a macchine e attrezzature per il giardinaggio e la cura del verde. Da quest'anno si aggiunge un nuovo spazio dedicato a prove e dimostrazioni",
+                    "url": "#",
+                    "tag": ["giardino", "notizie"],
+                },
+
+                {
+                    "title": "Nuovo Kubota RTV 520 per privati e professionisti",
+                    "description": "Efficiente, compatto e agile, il veicolo utilitario amplia l'offerta del brand e assicura prestazioni ottimali in diversi tipi di applicazioni",
+                    "url": "#",
+                    "tag": ["giardino", "tagliaerba"],
+                },
+                {
+                    "title": "Kubota RTV-X1110, carattere multitasking",
+                    "description": "Il veicolo multifunzione a quattro ruote motrici con motore Stage V e trasmissione idrostatica variabile offre alte prestazioni e un comfort best in class su qualsiasi terreno",
+                    "url": "#",
+                    "tag": ["giardino", "tagliaerba"],
+                },
+            ];
+            
+            // news
+            news_length = news.length;
+            document.getElementById("news_count").innerText = news.length;
+            newscontainer.innerHTML = '';
+            for(const el of news) {
+                newscontainer.innerHTML += `
+                <div class="single_news">
+                    <a href="${el.url}"><h3>${el.title}</h3></a>
+                    <p>${el.description}</p>
+                </div>
+                `
+            }
+
+            // prodotti
+            cards.innerHTML = '';
+            for(const el of prodotti) {
+                console.log(Number.isInteger(el.price) ? el.price.toString() + '.00' : el.price)
+                console.log(Number.isInteger(el.price))
+                cards.innerHTML += `
+                <div class="card">
+                    <div class="image_container">
+                        <div class="image" style="background-image: url('${el.image}')"></div>
+                    </div>
+                    <div class="content">
+                        <h2>${el.title}</h2>
+                        <p>${el.description}</p>
+                        <div class="info">
+                            <span class="price">${Number.isInteger(el.price) ? el.price.toString() + ',00' : el.price.toString().replace('.', ',')}<i class="fa-solid fa-euro-sign"></i></span>
+                            ${el.bestChoice ? "<span class=\"best_choice\">SCELTA MIGLIORE <i class=\"fa-solid fa-tag\"></i></span>" : ''}
+                        </div>
+                    </div>
+                    <a class="button">
+                        VEDI OFFERTA <i class="fa-solid fa-angle-right"></i>
+                    </a>
+                </div>
+                `
+            }
+            cards.innerHTML += `<a href="#">Vedi altri prodotti</a>`
+        }
+
+        function scrollFunction() {document.querySelector(".header")
+          if ((document.body.scrollTop > 80 || document.documentElement.scrollTop > 80)) {
+            document.querySelector(".header").className += " scrolled";
+          } else {
+            document.querySelector(".header").className = " header";
+          }
+        }
+        </script>
+</body>
+</html>
