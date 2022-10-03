@@ -82,46 +82,7 @@
             const newscontainer = document.getElementById('news');
             const cards = document.getElementById('cards');
             const prodotti = await fetch('https://mocki.io/v1/378cfa17-4958-4420-91fe-f0a83e99be59').then(res => res.json());
-            const news = [
-                {
-                    "title": "Legno e giardino",
-                    "description": "Novità dal mondo del legno, consigli utili per la manutenzione e molto altro ancora. Nuovo design per panche e fiorerie.",
-                    "url": "#",
-                    "tag": ["legno", "giardino", "mobili"],
-                },
-                {
-                    "title": "Progettazione dei frangivento",
-                    "description": "Trasforma il frangivento in una era e propria parete multifunzioale che può essere composta in base alle tue esigenze. L'obbiettivo è creare una soluzione resistente e pratica.",
-                    "url": "#",
-                    "tag": ["mobili", "fai-da-te"],
-                },
-
-                {
-                    "title": "Cura del verde, Kubota amplia la gamma e acquisisce Gianni Ferrari",
-                    "description": "Kubota Gianni Ferrari Srl così si chiamerà la nuova filiale del brand giapponese che incorporerà la divisione tosaerba del costruttore italiano Officine BIEFFEBI e della sua filiale Gianni Ferrari",
-                    "url": "#",
-                    "tag": ["giardino", "notizie", "tagliaerba"],
-                },
-                {
-                    "title": "Eima Green si prende cura del tuo verde",
-                    "description": "Confermato il Salone Green, anima verde di Eima International dedicata a macchine e attrezzature per il giardinaggio e la cura del verde. Da quest'anno si aggiunge un nuovo spazio dedicato a prove e dimostrazioni",
-                    "url": "#",
-                    "tag": ["giardino", "notizie"],
-                },
-
-                {
-                    "title": "Nuovo Kubota RTV 520 per privati e professionisti",
-                    "description": "Efficiente, compatto e agile, il veicolo utilitario amplia l'offerta del brand e assicura prestazioni ottimali in diversi tipi di applicazioni",
-                    "url": "#",
-                    "tag": ["giardino", "tagliaerba"],
-                },
-                {
-                    "title": "Kubota RTV-X1110, carattere multitasking",
-                    "description": "Il veicolo multifunzione a quattro ruote motrici con motore Stage V e trasmissione idrostatica variabile offre alte prestazioni e un comfort best in class su qualsiasi terreno",
-                    "url": "#",
-                    "tag": ["giardino", "tagliaerba"],
-                },
-            ];
+            const news = await fetch('https://mocki.io/v1/6c5c87dc-5b67-4849-b44d-786f8f3e0020').then(res => res.json());
             
             // news
             news_length = news.length;
